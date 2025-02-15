@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Turma{
 	private long id;
 	
 	@NotNull(message = "A turma deve possuir um nome!")
+	@NotBlank(message = "O nome não pode ser vazio!")
 	private String nome;
 	
 	private String semestre;
