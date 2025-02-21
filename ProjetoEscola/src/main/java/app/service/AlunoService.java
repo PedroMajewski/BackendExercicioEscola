@@ -37,4 +37,8 @@ public class AlunoService {
 	public List<Aluno> findAll() {
 		return this.AlunoRepository.findAll();
 	}
+	
+	public List<Aluno> findByfindByFirstnameStartingWith(String nomeAluno){
+		return this.AlunoRepository.findByNomeStartingWith(nomeAluno);
+	}
 }

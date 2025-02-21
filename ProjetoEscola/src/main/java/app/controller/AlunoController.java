@@ -74,4 +74,16 @@ public class AlunoController{
 		}
 	}
 	
+	//JPQL - Query SQL
+	
+	@GetMapping("/findByStartingWith/{nome}")
+	public ResponseEntity<List<Aluno>> findByStartingWith(@PathVariable String nome){
+		try {
+			List<Aluno> Aluno = this.alunoService.findByfindByFirstnameStartingWith(nome);
+			return new ResponseEntity<>(Aluno, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }
