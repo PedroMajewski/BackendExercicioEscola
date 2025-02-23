@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Aluno;
 import app.entity.Professor;
 import app.repository.ProfessorRepository;
 
@@ -15,8 +16,18 @@ public class ProfessorService {
 	private ProfessorRepository professorRepository;
 	
 	public String save(Professor professor) {
+		
+		 if (professorRepository.existsByEmail(professor.getEmail())) {
+	            throw new RuntimeException("Email já cadastrado!");
+	        }
+
+	        if (professor.getEmail().contains("@outlook.com")) {
+	            throw new RuntimeException("Domínio de e-mail não permitido");
+	        }
+		
 		this.professorRepository.save(professor);
 		return "Professsor salvo com sucesso!";
+		
 	}
 	
 	public String update(long id, Professor professor) {
@@ -37,4 +48,17 @@ public class ProfessorService {
 	public List<Professor> findAll() {
 		return this.professorRepository.findAll();
 	}
+	
+	public List<Professor> findByNomeOrEspecialidade(String nome, String especialidade){
+		return this.professorRepository.findByNomeStartingWithOrEspecialidadeStartingWith(nome, especialidade);
+	}
+	
+	public List<Professor> findBybuscarProfessoresSemGmail(){
+		return this.professorRepository.buscarProfessoresSemGmail();
+	}
+	
+	public List<Professor> findBybuscarProfessoresEmailExato(String email){
+		return this.professorRepository.buscarProfessoresEmailExato(email);
+	}
+	
 }

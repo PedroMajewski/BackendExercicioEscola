@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Curso;
@@ -73,5 +74,10 @@ public class CursoController{
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/findByNome/{nome}")
+    public List<Curso> buscarCursosPeloNome(@PathVariable String nomeCurso) {
+        return cursoService.buscarCursosPeloNome(nomeCurso);
+    }
 	
 }

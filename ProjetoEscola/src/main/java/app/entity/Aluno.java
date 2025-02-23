@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -32,7 +33,10 @@ public class Aluno{
 	
 	private String telefone;
 	
+	private boolean cadastrocompleto;
+	
 	@ManyToOne
+	@JoinColumn(name = "turma_id") 
 	private Turma turma;
 }
 

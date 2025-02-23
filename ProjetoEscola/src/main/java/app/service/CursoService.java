@@ -37,4 +37,10 @@ public class CursoService {
 	public List<Curso> findAll() {
 		return this.cursoRepository.findAll();
 	}
+	
+	//JPQL Querys
+	
+	public List<Curso> buscarCursosPeloNome(String nomeCurso) {
+        return cursoRepository.findByNomeIgnoreCase(nomeCurso);
+    }
 }

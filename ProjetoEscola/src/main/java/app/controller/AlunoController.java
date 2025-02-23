@@ -79,11 +79,33 @@ public class AlunoController{
 	@GetMapping("/findByStartingWith/{nome}")
 	public ResponseEntity<List<Aluno>> findByStartingWith(@PathVariable String nome){
 		try {
-			List<Aluno> Aluno = this.alunoService.findByfindByFirstnameStartingWith(nome);
+			List<Aluno> Aluno = this.alunoService.findByFirstnameStartingWith(nome);
 			return new ResponseEntity<>(Aluno, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/findByTelefoneContaining/{telefone}")
+	public ResponseEntity<List<Aluno>> findByTelefoneContaining(@PathVariable String telefone){
+		try {
+			List<Aluno> Aluno = this.alunoService.findByTelefoneContaining(telefone);
+			return new ResponseEntity<>(Aluno, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByNomeTurma/{turma}")
+	public ResponseEntity<List<Aluno>> findByNomeTurma(@PathVariable String turma){
+		try {
+			List<Aluno> Aluno = this.alunoService.findByNomeTurma(turma);
+			return new ResponseEntity<>(Aluno, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
 	
 }

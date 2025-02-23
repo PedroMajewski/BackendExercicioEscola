@@ -12,14 +12,31 @@ import app.repository.AlunoRepository;
 public class AlunoService {
 	
 	@Autowired
-	private AlunoRepository AlunoRepository;
+	private AlunoRepository AlunoRepository;	
 	
 	public String save(Aluno aluno) {
+		
+		 if (AlunoRepository.existsByCpf(aluno.getCpf())) {
+	            throw new RuntimeException("CPF já cadastrado!");
+	        }
+		 
+		 if (aluno.getTelefone() == null) {
+	            aluno.setCadastrocompleto(false);
+	        } else {
+	            aluno.setCadastrocompleto(false);
+	        }
 		this.AlunoRepository.save(aluno);
-		return "Aluno salvo com sucesso!";
+		return "Aluno Salvo com sucesso!";
 	}
 	
 	public String update(long id,Aluno aluno) {
+		
+		Aluno alunoExistente = AlunoRepository.findById(id).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+
+		if (!alunoExistente.getCpf().equals(aluno.getCpf()) && AlunoRepository.existsByCpf(aluno.getCpf())) {
+	            throw new RuntimeException("CPF já cadastrado!");
+	        }
+		
 		aluno.setId(id);
 		this.AlunoRepository.save(aluno);
 		return "Aluno com o ID: " + id + " editado com sucesso!";
@@ -38,7 +55,16 @@ public class AlunoService {
 		return this.AlunoRepository.findAll();
 	}
 	
-	public List<Aluno> findByfindByFirstnameStartingWith(String nomeAluno){
+	public List<Aluno> findByFirstnameStartingWith(String nomeAluno){
 		return this.AlunoRepository.findByNomeStartingWith(nomeAluno);
 	}
+	
+	public List<Aluno> findByTelefoneContaining(String telefone){
+		return this.AlunoRepository.findByTelefoneContaining(telefone);
+	}
+	
+	public List<Aluno> findByNomeTurma(String turma){
+		return this.AlunoRepository.buscarAlunosPorNomeDaTurma(turma);
+	}
+	
 }
